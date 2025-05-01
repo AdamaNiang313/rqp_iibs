@@ -25,7 +25,7 @@ function deleteUser($id){
     $stmt->execute(['id'=>$id]);
 }
 
-function updateUser($nom,$prenom,$age,$id_r,$login,$password,$id_){
+function updateUser($nom,$prenom,$age,$id_r,$login,$password,$id){
     global $connexion;
     $sql="UPDATE user SET nom = :nom, prenom=:prenom, age=:age, login=:login,password = :password , id_r=:id_r where id = :id";
                 $stmt = $connexion->prepare($sql);
