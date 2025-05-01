@@ -1,6 +1,8 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 
 <div class="container">
     <a class="btn btn-success mt-5" href="?action=addUser">Nouveau</a>
+    <a class="btn btn-danger mt-5 ml-5" href="?action=filterUsersOver18">filtre Age</a>
     <table class="table table-bordered mt-5">
     <thead>
         <tr>

@@ -34,7 +34,22 @@
         deleteUser($id); //model
         header('location:index.php'); //view
     }
-       
 
+    function getUsersOver18C() {
+        $users = getUserAgePlusDe18(); // Appelle la fonction de filtrage
+        require_once './view/users/liste.php'; // Charge la vue avec les utilisateurs filtrés
+    }
 
+    function getUserAgePlusDe18() {
+        $users = allUser(); // Récupère tous les utilisateurs depuis le modèle
+        $filteredUsers = [];
+    
+        foreach ($users as $user) {
+            if ($user['age'] > 18) {
+                $filteredUsers[] = $user;
+            }
+        }
+    
+        return $filteredUsers; // Retourne les utilisateurs ayant plus de 18 ans
+    }
 ?>

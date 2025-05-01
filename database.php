@@ -4,7 +4,7 @@
 function getConnexion(){
 
     $host = 'localhost';
-    $dbname = 'emargent_ibbs';
+    $dbname = 'emargements';
     $username = 'root';
     $password = '';
     

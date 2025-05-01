@@ -22,6 +22,10 @@
         case 'editUser':
             editUserC();
             break;
+        case 'filterUsersOver18': // Nouvelle route pour le filtrage
+            getUsersOver18C();
+            break;
+
     }
 
 
