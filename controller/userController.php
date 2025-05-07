@@ -1,55 +1,76 @@
 <?php
 
-    function getAllUsersC(){
-        $users = allUser(); //Model
-        require_once './view/users/liste.php'; //View
+class UserController {
+    private $userModel;
+    private $roleModel;
+
+    public function __construct() {
+        $this->userModel = new UserModel();
+        $this->roleModel = new RoleModel();
     }
 
-    function addUserC(){
-        $roles = getAllRoles(); //model
-        require_once './view/users/add.php';    //view 
+    // Getter pour $userModel
+    public function getUserModel() {
+        return $this->userModel;
     }
 
-    function storeUserC(){
+    // Setter pour $userModel
+    public function setUserModel($userModel) {
+        $this->userModel = $userModel;
+    }
+
+    // Getter pour $roleModel
+    public function getRoleModel() {
+        return $this->roleModel;
+    }
+
+    // Setter pour $roleModel
+    public function setRoleModel($roleModel) {
+        $this->roleModel = $roleModel;
+    }
+
+    public function listUsers() {
+        $users = $this->userModel->getAllUsers();
+        require_once './view/users/liste.php';
+    }
+
+    public function addUserForm() {
+        $roles = $this->roleModel->getAllRoles();
+        require_once './view/users/add.php';
+    }
+
+    public function saveUser() {
         extract($_POST);
-        addUser($nom,$prenom,$age,$id_r,$login,$password); //model
-        header('location:index.php'); //view 
+        $this->userModel->addUser($nom, $prenom, $age, $id_r, $login, $password);
+        header('Location: index.php');
     }
 
-    function editUserC(){
-        $id=$_GET['id'];
-        $roles = getAllRoles();
-        $user = getUserById($id);         
-        require_once './view/users/edit.php';   
+    public function editUserForm($id) {
+        $roles = $this->roleModel->getAllRoles();
+        $user = $this->userModel->getUserById($id);
+        require_once './view/users/edit.php';
     }
 
-    function updateUserC(){
+    public function updateUser() {
         extract($_POST);
-        updateUser($nom,$prenom,$age,$id_r,$login,$password,$id);
-        header('location:index.php');
-    }
-   
-    function deleteUserC(){
-        $id=$_GET['id'];
-        deleteUser($id); //model
-        header('location:index.php'); //view
+        $this->userModel->updateUser($id, $nom, $prenom, $age, $id_r, $login, $password);
+        header('Location: index.php');
     }
 
-    function getUsersOver18C() {
-        $users = getUserAgePlusDe18(); // Appelle la fonction de filtrage
-        require_once './view/users/liste.php'; // Charge la vue avec les utilisateurs filtrés
+    public function deleteUser($id) {
+        $this->userModel->deleteUser($id);
+        header('Location: index.php');
     }
 
-    function getUserAgePlusDe18() {
-        $users = allUser(); // Récupère tous les utilisateurs depuis le modèle
-        $filteredUsers = [];
-    
-        foreach ($users as $user) {
-            if ($user['age'] > 18) {
-                $filteredUsers[] = $user;
-            }
-        }
-    
-        return $filteredUsers; // Retourne les utilisateurs ayant plus de 18 ans
+    public function searchUsers() {
+        $searchTerm = $_POST['search'] ?? '';
+        $users = $this->userModel->searchUsers($searchTerm);
+        require_once './view/users/liste.php';
     }
+
+    public function getUsersOver18C() {
+        $users = $this->userModel->getUsersOver18();
+        require_once './view/users/liste.php';
+    }
+}
 ?>

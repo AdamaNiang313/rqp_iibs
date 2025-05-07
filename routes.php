@@ -1,32 +1,40 @@
 <?php
-
+    $controller = new UserController();
     $action = $_GET['action'] ?? 'listUser';
 
-
-    switch($action){
+    switch ($action) {
         case 'listUser':
-            getAllUsersC();
+            $controller->listUsers();
             break;
         case 'addUser':
-            addUserC();
+            $controller->addUserForm();
             break;
         case 'saveUser':
-            storeUserC();
+            $controller->saveUser();
             break;
         case 'deleteUser':
-            deleteUserC();
+            $id = $_GET['id'] ?? null;
+            if ($id) {
+                $controller->deleteUser($id);
+            }
             break;
         case 'updateUser':
-            updateUserC();
+            $controller->updateUser();
             break;
         case 'editUser':
-            editUserC();
+            $id = $_GET['id'] ?? null;
+            if ($id) {
+                $controller->editUserForm($id);
+            }
             break;
-        case 'filterUsersOver18': // Nouvelle route pour le filtrage
-            getUsersOver18C();
+        case 'filterUsersOver18':
+            $controller->getUsersOver18C();
             break;
-
+        case 'searchUsers':
+            $controller->searchUsers();
+            break;
+        default:
+            echo "Action non reconnue.";
+            break;
     }
-
-
 ?>
